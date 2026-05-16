@@ -1,0 +1,36 @@
+# Shell Environment
+zsh
+stow
+
+# Modern CLI Tools (Rust-based)
+eza
+bat
+fzf
+zoxide
+ripgrep
+
+# Terminal System Monitors
+btop
+
+# Terminal Editors
+vim
+neovim
+
+# Terminal Multiplexer
+tmux
+
+# Version Control
+git
+
+# Terminal Emultators
+kitty
+
+# Browsers
+brave-bin
+firefox
+
+# Nerd Fonts
+ttf-jetbrains-mono-nerd
+
+# Fun (Optional)
+cbonsai

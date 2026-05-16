@@ -1,0 +1,119 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "margin-top": 8,
+  "margin-right": 8,
+  "margin-left": 8,
+  "modules-left": [
+    "custom/logo",
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock#date",
+    "clock"
+  ],
+  "modules-right": [
+    "backlight",
+    "cpu",
+    "memory",
+    "disk",
+    "battery",
+    "custom/power"
+  ],
+  "custom/logo": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "hyprlauncher"
+  },
+  "disk": {
+    "interval": 60,
+    "format": "󰋊 {percentage_used}%",
+    "tooltip-format": "{used}/{total}"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%",
+    "tooltip-format": "{usage}%",
+    "on-click": "swaymsg exec gnome-system-monitor"
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      // "1": "1",
+      // "2": "2",
+      // "3": "3",
+      // "4": "4",
+      // "5": "5",
+      // "6": "6",
+      // "7": "7",
+      // "8": "8",
+      // "9": "9",
+      "default": "󱓼",
+      "active": "󱓻"
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+  "clock#date": {
+    // "format": "󰸗 {:%a %b %d}",
+    "format": "{:%a %b %d}",
+    "tooltip": true,
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "clock": {
+    // "format": "󰥔 {:%I:%M %p}",
+    "format": "{:%H:%M}",
+    "tooltip": true,
+    "tooltip-format": false,
+    "on-click": "swaymsg exec gnome-calendar"
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 80,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "  {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-discharging": " {capacity}%",
+    "format-critical": "  {capacity}% (Critical!!)",
+    "format-charging-warning": " {capacity}%",
+    "format-charging-critical": " {capacity}%",
+    "format-discharging-critical": "  {capacity}% (critical!!)",
+    "tooltip-format": "{time} remaining",
+    "tooltip-format-charging": "{time} until full",
+    "tooltip-format-discharging": "{time} remaining",
+    "on-click": "swaymsg exec gnome-control-center power"
+  },
+  "pulseaudio": {
+    // "format": "  {volume}%",
+    "format": "vol {volume}%",
+    "format-muted": " M",
+    "tooltip-format": "{desc}"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "scroll-step": 5,
+    "format": " {percent}%",
+    "tooltip": false
+  },
+  "memory": {
+    "interval": 1,
+    "format": " {}%",
+    "tooltip-format": "{used}/{total} GiB",
+    "on-click": "swaymsg exec gnome-system-monitor"
+  },
+  "custom/power": {
+    "format": "󰤆",
+    "tooltip": false,
+    "on-click": "wlogout"
+  }
+}

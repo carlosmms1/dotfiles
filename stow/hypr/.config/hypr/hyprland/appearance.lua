@@ -1,35 +1,27 @@
 hl.config({
     general = {
-        gaps_in  = 4,
-        gaps_out = 10,
-
-        border_size = 2,
-
+        gaps_in  = 6,
+        gaps_out = 8,
+        border_size = 3,
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            active_border   = { colors = {"rgba(89b4facc)", "rgba(89b4facc)"}, angle = 45 },
+            inactive_border = "rgba(6c7086aa)",
         },
-
-        -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
-        resize_on_border = false,
-
-        -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
+        resize_on_border = true,
         allow_tearing = false,
-
-        layout = "dwindle",
+        layout = "scrolling",
     },
 
     decoration = {
-        rounding       = 6,
-        rounding_power = 2,
+        rounding       = 12,
+        rounding_power = 4,
 
-        -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
+        active_opacity   = 0.98,
         inactive_opacity = 0.85,
 
         shadow = {
             enabled      = true,
-            range        = 4,
+            range        = 10,
             render_power = 3,
             color        = 0xee1a1a1a,
         },
@@ -37,7 +29,7 @@ hl.config({
         blur = {
             enabled   = true,
             size      = 3,
-            passes    = 1,
+            passes    = 3,
             vibrancy  = 0.1696,
         },
     },
