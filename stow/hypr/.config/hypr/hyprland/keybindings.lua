@@ -25,7 +25,6 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
--- hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -51,6 +50,7 @@ local ipc = "qs -c noctalia-shell ipc call"
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(ipc .. " launcher toggle"))
 hl.bind(mainMod .. " + COMMA", hl.dsp.exec_cmd(ipc .. " settings toggle"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.exec_cmd(ipc .. " sessionMenu lock"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]

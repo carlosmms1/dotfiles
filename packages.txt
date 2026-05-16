@@ -2,6 +2,13 @@
 zsh
 stow
 
+# Hyprland Ecosystem
+hyprland
+hyprshot
+
+# Noctalia Shell
+noctalia-shell
+
 # Modern CLI Tools (Rust-based)
 eza
 bat
