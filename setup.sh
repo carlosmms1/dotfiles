@@ -20,8 +20,6 @@ UPDATE_SYSTEM=true
 SETUP_PACKAGES=true
 SETUP_FONTS=true
 SETUP_ZSH=true
-SETUP_OMZ=true
-SETUP_PLUGINS=true
 SETUP_THEMES=true
 
 log() {
@@ -123,23 +121,23 @@ setup_packages() {
 # NERD FONTS CONFIGURATION
 # ========================
 
-setup_fonts() {
-    log STEP "Installing Nerd Fonts..."
-
-    # Verifica se a fonte já está instalada
-    if fc-list | grep -qi "JetBrainsMonoNerdFont"; then
-        log INFO "JetBrains Mono Nerd Font already installed"
-    else
-        log INFO "Installing ttf-jetbrains-mono-nerd..."
-        sudo pacman -S --noconfirm --needed ttf-jetbrains-mono-nerd
-        log SUCCESS "JetBrains Mono Nerd Font installed"
-    fi
-
-    # Atualiza o cache de fontes do sistema
-    log INFO "Updating fonts cache..."
-    fc-cache -fv &>/dev/null
-    log SUCCESS "Fonts cache updated"
-}
+# setup_fonts() {
+#     log STEP "Installing Nerd Fonts..."
+#
+#     # Verifica se a fonte já está instalada
+#     if fc-list | grep -qi "JetBrainsMonoNerdFont"; then
+#         log INFO "JetBrains Mono Nerd Font already installed"
+#     else
+#         log INFO "Installing ttf-jetbrains-mono-nerd..."
+#         sudo pacman -S --noconfirm --needed ttf-jetbrains-mono-nerd
+#         log SUCCESS "JetBrains Mono Nerd Font installed"
+#     fi
+#
+#     # Atualiza o cache de fontes do sistema
+#     log INFO "Updating fonts cache..."
+#     fc-cache -fv &>/dev/null
+#     log SUCCESS "Fonts cache updated"
+# }
 
 # ===================
 # SHELL CONFIGURATION
@@ -201,22 +199,22 @@ validate() {
         fi
     }
 
-    # check_cmd zsh
+    check_cmd zsh
     check_cmd git
     check_cmd curl
 
     [[ -d "$HOME/.oh-my-zsh" ]] \
         && log INFO "✓ Oh My Zsh" \
-        || { log ERROR "✗ Oh My Zsh não encontrado"; ((errors++)); }
+        || { log ERROR "✗ Oh My Zsh not found"; ((errors++)); }
 
     fc-list | grep -qi "JetBrainsMonoNerdFont" \
         && log INFO "✓ JetBrains Mono Nerd Font" \
-        || { log ERROR "✗ JetBrains Mono Nerd Font não encontrada"; ((errors++)); }
+        || { log ERROR "✗ JetBrains Mono Nerd Font not found"; ((errors++)); }
 
     if [[ $errors -eq 0 ]]; then
-        log SUCCESS "Tudo validado com sucesso!"
+        log SUCCESS "All passes!"
     else
-        log WARNING "$errors item(s) com problema. Verifique o log: $LOG_FILE"
+        log WARNING "$errors item(s) with problems. Verify the log: $LOG_FILE"
     fi
 }
 
@@ -239,18 +237,16 @@ parse_arguments() {
             --no-plugins)        SETUP_PLUGINS=false ;;
             --no-fonts)          SETUP_FONTS=false ;;
             --help|-h)
-                echo "Uso: $0 [OPÇÕES]"
+                echo "Use: $0 [OPTIONS]"
                 echo
-                echo "Opções:"
-                echo "  --no-zsh      Pula instalação/configuração do zsh"
-                echo "  --no-omz      Pula instalação do Oh My Zsh"
-                echo "  --no-plugins  Pula instalação dos plugins"
-                echo "  --no-fonts    Pula instalação das Nerd Fonts"
-                echo "  --help, -h    Exibe esta ajuda"
+                echo "Options:"
+                echo "  --no-zsh      Skip instalação/configuração do zsh"
+                echo "  --no-fonts    Skip Nerd Fonts installation"
+                echo "  --help, -h    Shows help"
                 exit 0
                 ;;
             *)
-                log ERROR "Opção desconhecida: $1"
+                log ERROR "Unknown option: $1"
                 exit 1
                 ;;
         esac
@@ -259,12 +255,12 @@ parse_arguments() {
 }
 
 main() {
-    echo "Instalação iniciada em $(date)" > "$LOG_FILE"
+    echo "Installation started at $(date)" > "$LOG_FILE"
 
     echo -e "${CYAN}"
     echo "  ╔══════════════════════════════════════╗"
-    echo "  ║      Bootstrap — Meu Ambiente        ║"
-    echo "  ║    Arch Linux · ZSH · Nerd Fonts     ║"
+    echo "  ║           Environment Setup          ║"
+    echo "  ║     Arch Linux · ZSH · Nerd Fonts    ║"
     echo "  ╚══════════════════════════════════════╝"
     echo -e "${NC}"
 
@@ -276,10 +272,7 @@ main() {
     echo "  • Yay (Yet Another Yogurt)"
     $UPDATE_SYSTEM   && echo "  • Update system"
     $SETUP_PACKAGES  && echo "  • System packages"
-    # $SETUP_FONTS   && echo "  • JetBrains Mono Nerd Font"
-    # $SETUP_ZSH     && echo "  • ZSH"
-    # $SETUP_OMZ     && echo "  • Oh My Zsh"
-    # $SETUP_PLUGINS && echo "  • Plugins (autosuggestions + syntax-highlighting)"
+    $SETUP_ZSH       && echo "  • ZSH"
     echo
 
     read -rp "$(echo -e "${CYAN}Continue? [y/N]:${NC} ")" confirm
@@ -288,18 +281,15 @@ main() {
     setup_yay
     $UPDATE_SYSTEM   && update_system
     $SETUP_PACKAGES  && setup_packages
-    # $SETUP_FONTS   && setup_fonts
-    # $SETUP_ZSH     && setup_zsh
-    # $SETUP_OMZ     && setup_omz
-    # $SETUP_PLUGINS && setup_plugins
+    $SETUP_ZSH     && setup_zsh
 
-    # validate
+    validate
 
-    echo
-    log SUCCESS "╔════════════════════════════════════════╗"
-    log SUCCESS "║Instalação concluída!                   ║"
-    log SUCCESS "╚════════════════════════════════════════╝"
-    echo
+    echo -e "${GREEN}"
+    echo "╔════════════════════════════════════════╗"
+    echo "║Instalação concluída!                   ║"
+    echo "╚════════════════════════════════════════╝"
+    echo -e "${NC}"
     log INFO "Próximos passos:"
     echo "  1. Reinicie o terminal (ou faça logout/login)"
     echo "  2. Adicione os plugins no seu .zshrc se ainda não estiverem"

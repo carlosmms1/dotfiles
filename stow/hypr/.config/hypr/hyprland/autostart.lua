@@ -1,6 +1,6 @@
 hl.on("hyprland.start", function () 
   hl.exec_cmd("qs -c noctalia-shell")
   hl.exec_cmd("brave", { workspace = "1 silent" })
-  hl.exec_cmd("kitty", { workspace = "1 silent" })
+  hl.exec_cmd("kitty", { workspace = "2 silent" })
   -- hl.exec_cmd("waybar & hyprpaper & hypridle")
 end)
