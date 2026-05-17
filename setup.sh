@@ -18,6 +18,7 @@ readonly NC='\033[0m' # No Color
 
 UPDATE_SYSTEM=true
 SETUP_PACKAGES=true
+SETUP_DOTFILES=true
 SETUP_FONTS=true
 SETUP_ZSH=true
 SETUP_THEMES=true
@@ -149,7 +150,7 @@ setup_zsh() {
     # Install ZSH if not present
     if ! command_exists zsh; then
         log INFO "Installing ZSH..."
-        sudo pacman -S --noconfirm zsh
+        yay -S --noconfirm --needed zsh git
     fi
 
     # Install Oh My Zsh
@@ -161,18 +162,18 @@ setup_zsh() {
     fi
 
     # Install ZSH plugins
-    local custom_plugins="$HOME/.oh-my-zsh/custom/plugins"
+    local plugins="$HOME/.oh-my-zsh/custom/plugins"
 
     # zsh-autosuggestions
-    if [ ! -d "$custom_plugins/zsh-autosuggestions" ]; then
+    if [ ! -d "$plugins/zsh-autosuggestions" ]; then
         log INFO "Installing zsh-autosuggestions..."
-        git clone https://github.com/zsh-users/zsh-autosuggestions "$custom_plugins/zsh-autosuggestions"
+        git clone https://github.com/zsh-users/zsh-autosuggestions "$plugins/zsh-autosuggestions"
     fi
 
     # zsh-syntax-highlighting
-    if [ ! -d "$custom_plugins/zsh-syntax-highlighting" ]; then
+    if [ ! -d "$plugins/zsh-syntax-highlighting" ]; then
         log INFO "Installing zsh-syntax-highlighting..."
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$custom_plugins/zsh-syntax-highlighting"
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$plugins/zsh-syntax-highlighting"
     fi
 
     # Set ZSH as default shell
@@ -184,6 +185,33 @@ setup_zsh() {
 
     log SUCCESS "ZSH environment configured"
 }
+
+# ==============
+# SETUP DOTFILES
+# ==============
+
+setup_dotfiles() {
+	log INFO "Setting up dotfiles with GNU Stow"
+
+	if ! command_exists stow; then
+		log INFO "Installing GNU Stow..."
+		yay -S --noconfirm --needed stow
+	fi
+
+	log INFO "Stowing dotfiles..."
+	cd "$SCRIPT_DIR/stow"
+	
+	for dir in */; do
+		echo -e "${CYAN}[]${NC} Stowing ${CYAN}${dir%/}${NC}"
+		stow -t "$HOME" --restow "${dir%/}"
+	done
+
+	log SUCCESS "All dotfiles stowed!"
+}
+
+# ==============
+# VALIDATE SETUP
+# ==============
 
 validate() {
     log STEP "Validating bootstrap..."
@@ -231,18 +259,20 @@ check_system() {
 parse_arguments() {
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --no-update-system)  UPDATE_SYSTEM=false ;;
             --no-zsh)            SETUP_ZSH=false ;;
-            --no-omz)            SETUP_OMZ=false ;;
-            --no-plugins)        SETUP_PLUGINS=false ;;
+            --no-update-system)  UPDATE_SYSTEM=false ;;
+            --no-dotfiles)       SETUP_DOTFILES=false ;;
             --no-fonts)          SETUP_FONTS=false ;;
             --help|-h)
                 echo "Use: $0 [OPTIONS]"
                 echo
                 echo "Options:"
-                echo "  --no-zsh      Skip instalação/configuração do zsh"
-                echo "  --no-fonts    Skip Nerd Fonts installation"
-                echo "  --help, -h    Shows help"
+                echo "  --no-zsh              Skip zsh installation/configuration"
+                echo "  --no-update-system    Skip system update"
+                echo "  --no-packages         Skip system packages installation"
+                echo "  --no-dotfiles         Skip dotfiles setup"
+                echo "  --no-fonts    	      Skip Nerd Fonts installation"
+                echo "  --help, -h            Shows help"
                 exit 0
                 ;;
             *)
@@ -273,6 +303,7 @@ main() {
     $UPDATE_SYSTEM   && echo "  • Update system"
     $SETUP_PACKAGES  && echo "  • System packages"
     $SETUP_ZSH       && echo "  • ZSH"
+    $SETUP_DOTFILES  && echo "  • Setup dotfiles"
     echo
 
     read -rp "$(echo -e "${CYAN}Continue? [y/N]:${NC} ")" confirm
@@ -281,7 +312,8 @@ main() {
     setup_yay
     $UPDATE_SYSTEM   && update_system
     $SETUP_PACKAGES  && setup_packages
-    $SETUP_ZSH     && setup_zsh
+    $SETUP_ZSH       && setup_zsh
+    $SETUP_DOTFILES  && setup_dotfiles
 
     validate
 

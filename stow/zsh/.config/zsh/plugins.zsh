@@ -10,4 +10,4 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Autosuggestions vars
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#c99e84'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#c99e84'
