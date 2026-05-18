@@ -156,7 +156,7 @@ setup_zsh() {
     # Install Oh My Zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         log INFO "Installing Oh My Zsh..."
-        RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     else
         log INFO "Oh My Zsh already installed"
     fi
@@ -184,6 +184,23 @@ setup_zsh() {
     fi
 
     log SUCCESS "ZSH environment configured"
+}
+
+# ============
+# SETUP THEMES
+# ============
+
+setup_themes() {
+        log STEP "Configuring OMZ themes..."
+
+	local omz_themes="$HOME/.oh-my-zsh/custom/themes"
+
+	if [ ! -d "$omz_themes/powerlevel10k" ]; then
+		log INFO "Installing powerlevel10k theme..."
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$omz_themes/powerlevel10k"
+	fi
+
+	log SUCCESS "OMZ Themes configured!"
 }
 
 # ==============
@@ -239,6 +256,10 @@ validate() {
         && log INFO "✓ JetBrains Mono Nerd Font" \
         || { log ERROR "✗ JetBrains Mono Nerd Font not found"; ((errors++)); }
 
+    fc-list | grep -qi "MesloLGSNerdFontMono" \
+        && log INFO "✓ MesloLGS Nerd Font Mono" \
+        || { log ERROR "✗ MesloLGS Nerd Font Mono not found"; ((errors++)); }
+
     if [[ $errors -eq 0 ]]; then
         log SUCCESS "All passes!"
     else
@@ -262,7 +283,7 @@ parse_arguments() {
             --no-zsh)            SETUP_ZSH=false ;;
             --no-update-system)  UPDATE_SYSTEM=false ;;
             --no-dotfiles)       SETUP_DOTFILES=false ;;
-            --no-fonts)          SETUP_FONTS=false ;;
+            --no-themes)         SETUP_THEMES=false ;;
             --help|-h)
                 echo "Use: $0 [OPTIONS]"
                 echo
@@ -271,7 +292,7 @@ parse_arguments() {
                 echo "  --no-update-system    Skip system update"
                 echo "  --no-packages         Skip system packages installation"
                 echo "  --no-dotfiles         Skip dotfiles setup"
-                echo "  --no-fonts    	      Skip Nerd Fonts installation"
+                echo "  --no-themes    	      Skip OMZ themes configuration"
                 echo "  --help, -h            Shows help"
                 exit 0
                 ;;
@@ -303,6 +324,7 @@ main() {
     $UPDATE_SYSTEM   && echo "  • Update system"
     $SETUP_PACKAGES  && echo "  • System packages"
     $SETUP_ZSH       && echo "  • ZSH"
+    $SETUP_THEMES    && echo "  • Setup OMZ themes"
     $SETUP_DOTFILES  && echo "  • Setup dotfiles"
     echo
 
@@ -313,6 +335,7 @@ main() {
     $UPDATE_SYSTEM   && update_system
     $SETUP_PACKAGES  && setup_packages
     $SETUP_ZSH       && setup_zsh
+    $SETUP_THEMES    && setup_themes
     $SETUP_DOTFILES  && setup_dotfiles
 
     validate

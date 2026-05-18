@@ -5,7 +5,6 @@ stow
 # Hyprland Ecosystem
 hyprland
 hyprshot
-
 # Noctalia Shell
 noctalia-shell
 
@@ -38,6 +37,7 @@ firefox
 
 # Nerd Fonts
 ttf-jetbrains-mono-nerd
+ttf-meslo-nerd
 
 # Fun (Optional)
 cbonsai
