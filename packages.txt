@@ -25,6 +25,9 @@ neovim
 # Terminal Multiplexer
 tmux
 
+# Terminal UI
+lazygit
+
 # Version Control
 git
 
