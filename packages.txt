@@ -1,3 +1,6 @@
+# OS
+gnome-keyring
+
 # Shell Environment
 zsh
 stow
