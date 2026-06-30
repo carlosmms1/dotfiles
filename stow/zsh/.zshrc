@@ -28,7 +28,7 @@ source_if_exists() {
 # source_if_exists "$ZSH_CONFIG_DIR/tools.zsh"
 
 # Loop available zsh modules
-for module in history completion plugins env tools aliases; do
+for module in history env plugins tools completion aliases; do
     [[ -r "$ZSH_CONFIG_DIR/$module.zsh" ]] && source "$ZSH_CONFIG_DIR/$module.zsh"
 done
 
@@ -39,8 +39,6 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 . "$HOME/.local/bin/env"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 
 # bun completions
 [ -s "/home/cmms/.bun/_bun" ] && source "/home/cmms/.bun/_bun"
