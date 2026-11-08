@@ -1,0 +1,31 @@
+# Debian/Ubuntu core packages.
+# Some tools (eza, gh, lazygit, ghostty, Nerd Fonts) may need third-party repos;
+# they are intentionally left out of the core list.
+
+zsh
+stow
+git
+curl
+unzip
+fontconfig
+openssh-client
+gnome-keyring
+
+# Terminal / CLI
+kitty
+tmux
+neovim
+vim
+btop
+ripgrep
+fd-find
+fzf
+zoxide
+bat
+cbonsai
+
+# Browser
+firefox-esr
+
+# VS Code is installed by scripts/code-install.sh
+# Nerd Fonts are installed by scripts/nf-install.sh

@@ -1,0 +1,5 @@
+# Fedora Wayland profile.
+# Fedora does not package Hyprland/Hyprshot/Noctalia Shell in the official
+# repositories. Use a COPR/compiled build or stick to the core profile on
+# GNOME. This file exists so `--profile wayland` does not fail on a fresh
+# Fedora install.

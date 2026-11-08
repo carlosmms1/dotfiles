@@ -1,0 +1,44 @@
+# Arch Linux packages.
+# Keep this file as the Arch counterpart of packages/fedora.txt.
+# ../packages.txt is a symlink to this file for backwards compatibility.
+
+# Shell / base
+zsh
+stow
+git
+curl
+wget
+unzip
+fontconfig
+gnome-keyring
+
+# Terminal / CLI
+kitty
+tmux
+neovim
+vim
+btop
+lazygit
+ripgrep
+fd
+fzf
+zoxide
+eza
+bat
+cbonsai
+
+# GitHub CLI / browsers
+github-cli
+firefox
+brave-bin
+
+# Wayland profile
+hyprland
+hyprshot
+noctalia-shell
+
+# Nerd Fonts (AUR)
+ttf-jetbrains-mono-nerd
+ttf-meslo-nerd
+
+# VS Code is installed by scripts/code-install.sh

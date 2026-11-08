@@ -1,0 +1,10 @@
+node_modules/
+package-lock.json
+bun.lock
+.env
+*.env
+secrets/
+service.json
+*.bak
+*.bak-*
+cli.json

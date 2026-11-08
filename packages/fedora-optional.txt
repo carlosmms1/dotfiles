@@ -1,0 +1,18 @@
+# Optional Fedora packages that need third-party repositories.
+# Enable the repositories first, then install manually:
+#
+#   sudo dnf install -y dnf-plugins-core
+#   sudo dnf copr enable -y dejan/lazygit
+#   sudo dnf copr enable -y scottames/ghostty
+#   sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+#   sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo.key
+#   sudo dnf install -y lazygit ghostty brave-browser
+#
+# Docker for the GitHub MCP server used by opencode:
+#   sudo dnf install -y moby-engine
+#   sudo systemctl enable --now docker
+
+lazygit
+ghostty
+brave-browser
+moby-engine

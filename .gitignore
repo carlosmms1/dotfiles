@@ -1,1 +1,7 @@
 *.log
+*.bak
+*.bak-*
+node_modules/
+
+.env*
+!.env.example

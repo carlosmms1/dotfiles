@@ -1,0 +1,47 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": [
+    "./plugins/herdr-agent-state.js",
+    "@langfuse/opencode-observability-plugin@latest",
+    "github:vercel/vercel-plugin"
+  ],
+  "mcp": {
+    "servers": {
+      "linear": {
+        "type": "remote",
+        "url": "https://mcp.linear.app/mcp"
+      },
+      "plane": {
+        "type": "remote",
+        "url": "https://mcp.plane.so/http/mcp"
+      },
+      "github": {
+        "type": "local",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "-i",
+          "-e",
+          "GITHUB_PERSONAL_ACCESS_TOKEN",
+          "-e",
+          "GITHUB_TOOLSETS=context,issues,projects,pull_requests,actions",
+          "ghcr.io/github/github-mcp-server:latest"
+        ]
+      },
+      "ai-memory": {
+        "type": "remote",
+        "url": "http://127.0.0.1:49376/mcp",
+        "oauth": false
+      },
+      "Neon": {
+        "type": "remote",
+        "url": "https://mcp.neon.tech/mcp",
+        "headers": {
+          // Set NEON_API_KEY in ~/.config/opencode/.env (never commit it).
+          "Authorization": "Bearer {env:NEON_API_KEY}"
+        }
+      }
+    }
+  }
+}

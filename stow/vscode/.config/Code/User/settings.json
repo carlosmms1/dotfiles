@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "git.confirmSync": false,
+  "workbench.startupEditor": "none",
+  "python.analysis.typeCheckingMode": "standard",
+  "sonarlint.automaticAnalysis": false,
+  "notebook.output.scrolling": true,
+  "continue.showInlineTip": false
+}

@@ -1,0 +1,33 @@
+# Fedora core packages (official repositories).
+# Optional/COPR/third-party packages are in packages/fedora-optional.txt.
+
+# Shell / base
+zsh
+stow
+git
+curl
+unzip
+fontconfig
+openssh-clients
+gnome-keyring
+
+# Terminal / CLI
+kitty
+tmux
+neovim
+vim-enhanced
+btop
+ripgrep
+fd-find
+fzf
+zoxide
+eza
+bat
+cbonsai
+
+# GitHub CLI / browser
+gh
+firefox
+
+# VS Code is installed by scripts/code-install.sh
+# Nerd Fonts are installed by scripts/nf-install.sh
