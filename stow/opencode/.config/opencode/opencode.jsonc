@@ -3,45 +3,50 @@
   "plugins": [
     "./plugins/herdr-agent-state.js",
     "@langfuse/opencode-observability-plugin@latest",
-    "github:vercel/vercel-plugin"
+    "github:vercel/vercel-plugin",
   ],
   "mcp": {
     "servers": {
       "linear": {
         "type": "remote",
-        "url": "https://mcp.linear.app/mcp"
+        "url": "https://mcp.linear.app/mcp",
       },
       "plane": {
         "type": "remote",
-        "url": "https://mcp.plane.so/http/mcp"
+        "url": "https://mcp.plane.so/http/api-key/mcp",
+        "oauth": false, // Header/PAT endpoint: never start an OAuth flow.
+        "headers": {
+          "Authorization": "Bearer {env:PLANE_API_TOKEN}",
+          "x-workspace-slug": "marka-system",
+        },
       },
-      "github": {
-        "type": "local",
-        "command": [
-          "docker",
-          "run",
-          "--rm",
-          "-i",
-          "-e",
-          "GITHUB_PERSONAL_ACCESS_TOKEN",
-          "-e",
-          "GITHUB_TOOLSETS=context,issues,projects,pull_requests,actions",
-          "ghcr.io/github/github-mcp-server:latest"
-        ]
-      },
+      // "github": {
+      //   "type": "local",
+      //   "command": [
+      //     "docker",
+      //     "run",
+      //     "--rm",
+      //     "-i",
+      //     "-e",
+      //     "GITHUB_PERSONAL_ACCESS_TOKEN",
+      //     "-e",
+      //     "GITHUB_TOOLSETS=context,issues,projects,pull_requests,actions",
+      //     "ghcr.io/github/github-mcp-server:latest",
+      //   ],
+      // },
       "ai-memory": {
         "type": "remote",
         "url": "http://127.0.0.1:49376/mcp",
-        "oauth": false
+        "oauth": false,
       },
-      "Neon": {
+      "neon": {
         "type": "remote",
         "url": "https://mcp.neon.tech/mcp",
         "headers": {
           // Set NEON_API_KEY in ~/.config/opencode/.env (never commit it).
-          "Authorization": "Bearer {env:NEON_API_KEY}"
-        }
-      }
-    }
-  }
+          "Authorization": "Bearer {env:NEON_API_KEY}",
+        },
+      },
+    },
+  },
 }
