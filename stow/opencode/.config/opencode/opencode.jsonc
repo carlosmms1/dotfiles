@@ -34,11 +34,14 @@
       //     "ghcr.io/github/github-mcp-server:latest",
       //   ],
       // },
-      "ai-memory": {
-        "type": "remote",
-        "url": "http://127.0.0.1:49376/mcp",
-        "oauth": false,
-      },
+      // DESABILITADO: MCP do ai-memory desativado de proposito.
+      // O servidor local em 127.0.0.1:49376 nao esta rodando e gerava
+      // erro de conexao (ECONNREFUSED). Descomente para reativar.
+      // "ai-memory": {
+      //   "type": "remote",
+      //   "url": "http://127.0.0.1:49376/mcp",
+      //   "oauth": false,
+      // },
       "neon": {
         "type": "remote",
         "url": "https://mcp.neon.tech/mcp",
